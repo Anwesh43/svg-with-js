@@ -14,6 +14,10 @@ class SVGStage {
         this.createStage(w,h)
         this.fillColor = 'black'
         this.strokeColor = 'black'
+        this.strokeWidth = 1
+    }
+    setStrokeWidth(width) {
+        this.strokeWidth = width
     }
     createStage(w,h) {
         const dimensionsMap = {"width":w,"height":h}
@@ -40,5 +44,12 @@ class SVGStage {
         const circle = document.createSVGElement('circle')
         SVGStageUtil.createAttributes(circle,circleMap)
         this.svg.appendChild(circle)
+    }
+    strokeLine(x1,y1,x2,y2) {
+        const style = `stroke:${this.strokeColor};stroke-width:${this.strokeWidth}`
+        const line = document.createSVGElement('line')
+        const lineMap = {x1,y1,x2,y2,style}
+        SVGStageUtil.createAttributes(line,lineMap)
+        this.svg.appendChild(line)
     }
 }
