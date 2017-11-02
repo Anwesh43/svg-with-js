@@ -15,6 +15,7 @@ class SVGStage {
         this.fillColor = 'black'
         this.strokeColor = 'black'
         this.strokeWidth = 1
+        this.childrens = []
     }
     setStrokeWidth(width) {
         this.strokeWidth = width
@@ -36,6 +37,7 @@ class SVGStage {
         const circle = document.createSVGElement('circle')
         SVGStageUtil.createAttributes(circle,circleMap)
         this.svg.appendChild(circle)
+        this.childrens.push(circle)
     }
     strokeCircle(cx,cy,r) {
         const stroke = this.strokeColor
@@ -44,6 +46,7 @@ class SVGStage {
         const circle = document.createSVGElement('circle')
         SVGStageUtil.createAttributes(circle,circleMap)
         this.svg.appendChild(circle)
+        this.childrens.push(circle)
     }
     strokeLine(x1,y1,x2,y2) {
         const style = `stroke:${this.strokeColor};stroke-width:${this.strokeWidth}`
@@ -51,5 +54,12 @@ class SVGStage {
         const lineMap = {x1,y1,x2,y2,style}
         SVGStageUtil.createAttributes(line,lineMap)
         this.svg.appendChild(line)
+        this.childrens.push(line)
+    }
+    redraw() {
+        for(var i=0;i<this.childrens.length;i++) {
+            const child = this.childrens[i]
+            this.svg.removeChild(child)
+        }
     }
 }

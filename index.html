@@ -8,8 +8,12 @@
         stage.fillColor = 'red'
         stage.strokeColor = 'green'
         stage.strokeWidth = 5
-        // stage.fillCircle(200,200,100)
-        // stage.strokeCircle(200,200,100)
-        stage.strokeLine(100,100,200,200)
+        stage.fillCircle(200,200,100)
+        stage.strokeCircle(200,200,100)
+        setTimeout(()=>{
+            stage.redraw()
+            stage.strokeLine(100,100,200,200)
+        },2000)
+
     </script>
 </body>
