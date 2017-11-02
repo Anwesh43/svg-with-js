@@ -10,6 +10,8 @@ class SVGStageUtil {
 }
 class SVGStage {
     constructor(w,h) {
+        this.width = w
+        this.height = h
         this.svg = document.createSVGElement('svg')
         this.createStage(w,h)
         this.fillColor = 'black'
@@ -57,9 +59,33 @@ class SVGStage {
         this.childrens.push(line)
     }
     redraw() {
-        for(var i=0;i<this.childrens.length;i++) {
-            const child = this.childrens[i]
+        var max = this.childrens.length
+        for(var i=0;i<max;i++) {
+            const child = this.childrens[0]
             this.svg.removeChild(child)
+            this.childrens.splice(0,1)
+        }
+    }
+}
+class SvgLooper {
+    constructor(stage,timeInMilliSeconds) {
+        this.stage = stage
+        this.animated = false
+        this.time = timeInMilliSeconds||100
+    }
+    run(cb) {
+        if(!this.animated) {
+            this.animated = true
+            this.interval = setInterval(()=>{
+              this.stage.redraw()
+              cb()
+            },this.time)
+        }
+    }
+    stop() {
+        if(this.animated) {
+            this.animated = false
+            clearInterval(this.interval)
         }
     }
 }
